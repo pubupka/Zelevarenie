@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication11
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StreamReader rdr = new StreamReader(@"C:\Users\US_8-204\Desktop\Зельеварение\input10.txt");
+            string line = rdr.ReadLine();
+            List<string> list = new List<string>();
+            while (line != null)
+            {
+                string[] input = line.Split(' ');
+                string vvod = "";
+                for (int i = 1; i < input.Length; i++)
+                {
+                    try
+                    {
+                        int num = Convert.ToInt32(input[i]);
+                        vvod += list[num-1];
+
+                    }
+                    catch
+                    {
+                        vvod += input[i];
+                    }
+                }
+                switch (input[0])
+                {
+                    case "DUST":
+                        vvod = "DT" + vvod;
+                        vvod += "TD";
+                        break;
+                    case "WATER":
+                        vvod = "WT" + vvod;
+                        vvod += "TW";
+                        break;
+                    case "MIX":
+                        vvod = "MX" + vvod;
+                        vvod += "XM";
+                        break;
+                    default:
+                        vvod = "FR" + vvod;
+                        vvod += "RF";
+                        break;
+                }
+                list.Add(vvod);
+                line = rdr.ReadLine(); 
+                if (line == null)
+                {
+                    StreamReader rdr1 = new StreamReader(@"C:\Users\US_8-204\Desktop\Зельеварение\output10.txt");
+                    string line1 = rdr1.ReadLine();
+                    Console.WriteLine(vvod==line1);
+                }
+            }
+            Console.Read();
+        }
+    }
+}
